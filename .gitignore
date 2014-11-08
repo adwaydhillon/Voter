@@ -35,3 +35,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Dependencies handled by npm#
+##############################
+backend/node_modules/

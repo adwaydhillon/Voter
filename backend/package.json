@@ -1,0 +1,8 @@
+{
+  "name": "Voter",
+  "description": "vote through text-messaging.",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.10.1"
+  }
+}
