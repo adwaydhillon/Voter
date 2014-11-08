@@ -19,10 +19,14 @@
       Hide Completed Tasks
     </label>
 
+    {{> loginButtons}} <!-- login buttons -->
+
       <!-- add a form below the h1 -->
+      {{#if currentUser}}
       <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new tasks" />
+        <input type="text" name="text" placeholder="Type to submit new vote" />
       </form>
+      {{/if}}
     </header>
 
     <ul>
@@ -39,6 +43,6 @@
 
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-    <span class="text">{{text}}</span>
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
 </template>
