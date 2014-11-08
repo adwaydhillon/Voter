@@ -104,7 +104,7 @@ Meteor.methods({
     response.inputName = rawIn.From;
 
     var toOrig = rawIn.To;
-    toOrig = toOrig.replace(/\+1/g, "5204471678");
+    toOrig = toOrig.replace(/\+1/g, "6787854359");
     var toPretty = '('+toOrig.substr(0,3)+') '+toOrig.substr(3,3)+'-'+toOrig.substr(6,10);
     var eventDetails = Events.findOne({phone: toPretty});
 
