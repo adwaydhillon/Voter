@@ -81,7 +81,6 @@ if (Meteor.isClient) {
 
   Template.twilio_test.events({
     "click button": function() {
-      //
       console.log("hey");
       Meteor.call("sendsms", "Testing", "+16787561965");
     }
