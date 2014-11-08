@@ -4,6 +4,10 @@ var accountSid = 'AC05a65b25f93c0661020d39873a925618';
 var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
 var client = Twilio(accountSid, authToken);
 
+Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
+    extended: false
+}));
+
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
@@ -49,25 +53,6 @@ if (Meteor.isClient) {
 
 });
 
-// Template.twil.events({
-//     'click button': function () {
-//       twilio.sendSms({
-//       to:'+14049407775', // Any number Twilio can deliver to
-//       from: '+15204471690', // A number you bought from Twilio and can use for outbound communication
-//       body: 'Message on click' // body of the SMS message
-//     }, function(err, responseData) { //this function is executed when a response is received from Twilio
-//       if (!err) { // "err" is an error received during the request, if any
-//         // "responseData" is a JavaScript object containing data received from Twilio.
-//         // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-//         // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-//         console.log(responseData.from); // outputs "+14506667788"
-//         console.log(responseData.body); // outputs "word to your mother."
-//       }
-//   });
-//     }
-//   });
-// }
-
 Template.task.events({
   "click .toggle-checked": function () {
     // Set the checked property to the opposite of its current value
@@ -92,9 +77,15 @@ Accounts.ui.config({
 
 }
 
+Router.route('/api/test', {where: 'server'})
+  .post(function(req, res) {
+    console.log(req.body);
+  });
+
 Router.route('/api/twiml/sms', {where: 'server'})
   .post(function(req, res) {
-    Meteor.call("sendsms", "Thanks for texting", req.From);
+    this.render('twilio_test', {message_received: req.body.message})
+    Meteor.call("sendsms", "Thanks for texting", req.body.From);
   });
 
 Meteor.methods({
