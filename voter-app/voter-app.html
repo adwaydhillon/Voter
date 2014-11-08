@@ -10,7 +10,14 @@
     </header>
 
     <header>
-      <h1>Votes</h1>
+      <h1>Votes ({{incompleteCount}})</h1>
+
+
+      <!-- add the checkbox to <body> right below the h1 -->
+    <label class="hide-completed">
+      <input type="checkbox" checked="{{hideCompleted}}" />
+      Hide Completed Tasks
+    </label>
 
       <!-- add a form below the h1 -->
       <form class="new-task">
