@@ -29,7 +29,7 @@
       </form>
       {{/if}}
     </header>
-    {{> twilio_test}}
+    {{> twil}}
     <ul>
       {{#each tasks}}
         {{> task}}
@@ -48,13 +48,14 @@
   </li>
 </template>
 
-<template name="twilio_test">
-  <button>
+<template name="twil">
+  <button id="send">
     Send Message
   </button>
   <p>{{message_received}}</p>
+  <button id = "rec"> Recieve SMS </button>
 </template>
 
-<template name="twil">
+<!-- <template name="twil">
   <button>Click Me to send text</button>
-</template>
+</template> -->
