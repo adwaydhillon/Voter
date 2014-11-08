@@ -11,3 +11,5 @@ mrt:twilio-meteor
 accounts-ui
 accounts-password
 iron:router
+aldeed:autoform
+

@@ -6,29 +6,40 @@
 <body>
   <div class="container">
     <header>
-      <h1>Voter Application</h1>
-    </header>
+      <h1>Voter ({{incompleteCount}})</h1>
 
-    <header>
-      <h1>Votes ({{incompleteCount}})</h1>
-
-      <!-- add the checkbox to <body> right below the h1 -->
     <label class="hide-completed">
       <input type="checkbox" checked="{{hideCompleted}}" />
       Hide Checked Votes
     </label>
 
+    <form class="form-horizontal">
+    <fieldset>
+    <!-- Form Name -->
+    <legend>Event Details</legend>
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="eventname"></label>
+      <div class="controls">
+        <input id="eventname" name="eventname" type="text" placeholder="Event Name" class="input-xlarge" required="">
+      </div>
+    </div>
+    </fieldset>
+    </form>
+
+    <br>
     {{> loginButtons}}  <!-- login buttons -->
     <br>
-    {{> twil}}
 
       <!-- add a form below the h1 -->
       {{#if currentUser}}
       <form class="new-task">
         <input type="text" name="text" placeholder="Type to submit new vote" />
       </form>
+
       {{/if}}
     </header>
+
     {{> twil}}
     <ul>
       {{#each tasks}}
@@ -36,6 +47,7 @@
       {{/each}}
     </ul>
   </div>
+
 </body>
 
 <template name="task">
@@ -55,7 +67,3 @@
   <p>{{message_received}}</p>
   <button id = "rec"> Recieve SMS </button>
 </template>
-
-<!-- <template name="twil">
-  <button>Click Me to send text</button>
-</template> -->
