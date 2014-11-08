@@ -1,5 +1,8 @@
 Tasks = new Mongo.Collection("tasks");
 //twilio = Twilio("AC21f850538ec9bb250cd0de8b5c0badb3", "eaa95b3091b8866e36c1ec9aa82588e5");
+var accountSid = 'AC05a65b25f93c0661020d39873a925618';
+var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
+var client = Twilio(accountSid, authToken);
 
 if (Meteor.isClient) {
   // This code only runs on the client
@@ -79,7 +82,7 @@ Template.twilio_test.events({
   "click button": function() {
     //
     console.log("hey");
-    Meteor.call("sendsms");
+    Meteor.call("sendsms", "Testing", "+16787561965");
   }
 });
 // Login Functionality
@@ -89,14 +92,16 @@ Accounts.ui.config({
 
 }
 
+Router.route('/api/twiml/sms', {where: 'server'})
+  .post(function(req, res) {
+    Meteor.call("sendsms", "Thanks for texting", req.From);
+  });
+
 Meteor.methods({
-  sendsms: function() {
-    var accountSid = 'AC05a65b25f93c0661020d39873a925618';
-    var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
-    var client = Twilio(accountSid, authToken);
+  sendsms: function(body, number) {
     client.sendSms({
-        body: "Adway is a chut",
-        to: "+16787561965",
+        body: body,
+        to: number,
         from: "+16787854359"
     }, function(err, message) {
         if (err) {
