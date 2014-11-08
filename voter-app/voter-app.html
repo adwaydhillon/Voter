@@ -17,7 +17,7 @@
         <input type="text" name="text" placeholder="Type to add new tasks" />
       </form>
     </header>
-
+    {{> twilio_test}}
     <ul>
       {{#each tasks}}
         {{> task}}
@@ -34,4 +34,9 @@
 
     <span class="text">{{text}}</span>
   </li>
+</template>
+<template name="twilio_test">
+  <button>
+    Send Message
+  </button>
 </template>

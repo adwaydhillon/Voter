@@ -6,3 +6,6 @@
 meteor-platform
 autopublish
 insecure
+mrt:moment
+mrt:twilio-meteor
+
