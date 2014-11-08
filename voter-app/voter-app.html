@@ -32,6 +32,7 @@
       <h1>Voter Application</h1>
     </header>
 
+<<<<<<< HEAD
     <div class="site-wrapper">
 
       <div class="site-wrapper-inner">
@@ -64,6 +65,36 @@
 
     </div>
     </div>
+=======
+    <header>
+      <h1>Votes ({{incompleteCount}})</h1>
+
+      <!-- add the checkbox to <body> right below the h1 -->
+    <label class="hide-completed">
+      <input type="checkbox" checked="{{hideCompleted}}" />
+      Hide Checked Votes
+    </label>
+
+    {{> loginButtons}}  <!-- login buttons -->
+    <br>
+    {{> twil}}
+
+      <!-- add a form below the h1 -->
+      {{#if currentUser}}
+      <form class="new-task">
+        <input type="text" name="text" placeholder="Type to submit new vote" />
+      </form>
+      {{/if}}
+    </header>
+    {{> twil}}
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+>>>>>>> e3511cad447546384fbe47604849c670681f2be0
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
@@ -79,12 +110,14 @@
   <button id="send">
     Send Message
   </button>
+  <p>{{message_received}}</p>
   <button id = "rec"> Recieve SMS </button>
- </template>
+</template>
 
 <!-- <template name="twil">
   <button>Click Me to send text</button>
 </template> -->
+<<<<<<< HEAD
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -94,3 +127,5 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
+=======
+>>>>>>> e3511cad447546384fbe47604849c670681f2be0
