@@ -27,3 +27,7 @@ Meteor.Router.add('/api/twiml/sms', 'POST', function() {
     Meteor.call('questionCreate', response, function(error, res) {
 
     });
+
+    var xml = '<Response><Sms>Your response has been recorded!</Sms></Response>';
+    return [200, {"Content-Type": "text/xml"}, xml];
+});
