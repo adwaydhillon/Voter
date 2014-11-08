@@ -21,7 +21,8 @@ Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
  */
 var user_messages = {
   ALREADY_VOTED: "You have already voted for this event.",
-  VOTE_SUCCESSFUL: "Thank you for voting. Your vote has successfully been recorded."
+  VOTE_SUCCESSFUL: "Thank you for voting. Your vote has successfully been recorded.",
+  VOTE_WRONG_FORM: "Your message was in the incorrect form. Please enter it in the proper form: 'eventID itemID'"
 };
 
 if (Meteor.isClient) {
@@ -124,8 +125,22 @@ Router.route('/api/test', {where: 'server'})
 
 Router.route('/api/twiml/sms', {where: 'server'})
   .post(function(req, res) {
-    this.render('twilio_test', {message_received: req.body.Message})
+    this.render('twilio_test', {message_received: req.body.Body})
     Meteor.call("sendsms", "Thanks for texting", req.body.From);
+  });
+Router.route('/vote', {where: 'server'})
+  .post(function(req, res) {
+    var content = req.body.Body;
+    // Parse the content to be an event id and a thing to vote for.
+    var parsed = Meteor.call("verify_vote", content);
+
+    if (parsed) {
+      message = Meteor.call("add_vote", req.body.From, parsed.event_id, parsed.item);
+    }
+    else {
+      message = user_messages.VOTE_WRONG_FORM;
+    }
+    Meteor.call("sendsms", message, req.body.From);
   });
 /**
  * Test Routes
@@ -230,7 +245,18 @@ Meteor.methods({
     Items.update({ event: event_id, num: item_num }, {$inc: {votes: 1}});
     return user_messages.VOTE_SUCCESSFUL;
   },
-  verify_vote: function() {
+  verify_vote: function(body) {
+    // Parse body to be event_id and the table number
+    var result = null;
+    var parts = body.split(' ');
+    if (parts.length != 2) return result;
 
+    var item_num = parseInt(parts[1], 10);
+    if (isNaN(item_num)) return result;
+
+    return {
+      event_id: parts[0],
+      item: item_num
+    };
   }
 });
