@@ -74,13 +74,13 @@ Accounts.ui.config({
 
 Meteor.methods({
   sendsms: function() {
-    var accountSid = 'AC05a65b25f93c0661020d39873a925618';
-    var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
+    var accountSid = 'ACcea3b7882dd4e85eb7830b26e41b553b';
+    var authToken = "c0ebf06a6750463d882c1f8329f21449";
     var client = Twilio(accountSid, authToken);
     client.sendSms({
         body: "Methos",
         to: "+16787561965",
-        from: "+16787854359"
+        from: "+15204471678"
     }, function(err, message) {
         if (err) {
             console.log(err.message);
