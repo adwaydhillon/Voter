@@ -17,6 +17,14 @@ body {
   font-size: 14px;
 }
 
+/** {
+  .border-radius(0) !important;
+}
+
+#field {
+    margin-bottom:20px;
+}*/
+
 .container {
   max-width: 600px;
   margin: 0 auto;
