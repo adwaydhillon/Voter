@@ -18,10 +18,7 @@
       Hide Checked Votes
     </label>
 
-    <!-- {{> loginButtons}}  -->
-    <!-- login buttons -->
-    <br>
-    {{> twil}}
+    {{> loginButtons}} <!-- login buttons -->
 
       <!-- add a form below the h1 -->
       {{#if currentUser}}
@@ -30,7 +27,7 @@
       </form>
       {{/if}}
     </header>
-    {{> twilio_test}}
+    {{> twil}}
     <ul>
       {{#each tasks}}
         {{> task}}
@@ -49,12 +46,12 @@
   </li>
 </template>
 
-<template name="twilio_test">
+<template name="twil">
   <button>
     Send Message
   </button>
-</template>
+ </template>
 
-<template name="twil">
+<!-- <template name="twil">
   <button>Click Me to send text</button>
-</template>
+</template> -->
