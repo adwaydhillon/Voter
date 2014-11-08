@@ -38,31 +38,18 @@
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
-    <button type="button" class="btn btn-primary" data-target=".bs-example-modal-lg">Large modal</button>
+    <button class="delete">&times;</button>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-    <!-- <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span> -->
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
 </template>
 
 <template name="twil">
-  <button type="button" class="btn btn-primary" data-targets=".bs-example-modal-lg" id="send">Send Message</button>
-  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
+  <button id="send">
+    Send Message
+  </button>
   <button id = "rec"> Recieve SMS </button>
  </template>
 
