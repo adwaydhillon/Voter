@@ -83,9 +83,9 @@ Template.twilio_test.events({
   }
 });
 // Login Functionality
-// Accounts.ui.config({
-//   passwordSignupFields: "USERNAME_ONLY"
-// });
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
 
 }
 

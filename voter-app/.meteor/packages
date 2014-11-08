@@ -8,4 +8,6 @@ autopublish
 insecure
 mrt:moment
 mrt:twilio-meteor
+accounts-ui
+accounts-password
 
