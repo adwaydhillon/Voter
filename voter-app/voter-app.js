@@ -1,14 +1,14 @@
 /**
- * Collections
- */
+* Collections
+*/
 Votes = new Mongo.Collection("votes");
 Events = new Mongo.Collection("events");
 Items = new Mongo.Collection("items");
 PhoneNumbers = new Mongo.Collection("phone_numbers");
 
 /**
- * Setup
- */
+* Setup
+*/
 var accountSid = 'AC05a65b25f93c0661020d39873a925618';
 var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
 var client = Twilio(accountSid, authToken);
@@ -17,8 +17,8 @@ Router.onBeforeAction(Iron.Router.bodyParser.urlencoded({
 }));
 
 /**
- * Constants
- */
+* Constants
+*/
 var user_messages = {
   ALREADY_VOTED: "You have already voted for this event.",
   VOTE_SUCCESSFUL: "Thank you for voting. Your vote has successfully been recorded.",
@@ -26,81 +26,107 @@ var user_messages = {
 };
 
 if (Meteor.isClient) {
-  // This code only runs on the client
-  Template.body.helpers({
-      tasks: function () {
-          if (Session.get("hideCompleted")) {
-              // If hide completed is checked, filter tasks
-              return Votes.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
-          } else {
-              // Otherwise, return all of the tasks
-              return Votes.find({}, {sort: {createdAt: -1}});
-          }
-      },
-      hideCompleted: function () {
-          return Session.get("hideCompleted");
-      },
-      incompleteCount: function () {
-          return Votes.find({checked: {$ne: true}}).count();
-      }
-  });
+    // This code only runs on the client
+    Template.body.helpers({
+        tasks: function () {
+            if (Session.get("hideCompleted")) {
+                // If hide completed is checked, filter tasks
+                return Votes.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
+            } else {
+                // Otherwise, return all of the tasks
+                return Votes.find({}, {sort: {createdAt: -1}});
+            }
+        },
+        hideCompleted: function () {
+            return Session.get("hideCompleted");
+        },
+        incompleteCount: function () {
+            return Votes.find({checked: {$ne: true}}).count();
+        }
+    });
 
-  Template.body.events({
-      "submit .new-task": function (event) {
-          // This function is called when the new task form is submitted
+    Template.body.events({
+        "submit .new-task": function (event) {
+            // This function is called when the new task form is submitted
 
-          var text = event.target.text.value;
+            var text = event.target.text.value;
 
-          Votes.insert({
-              text: text,
-              createdAt: new Date(),            // current time
-              owner: Meteor.userId(),           // _id of logged in user
-              username: Meteor.user().username  // username of logged in user
-          });
+            Votes.insert({
+                text: text,
+                createdAt: new Date(),            // current time
+                owner: Meteor.userId(),           // _id of logged in user
+                username: Meteor.user().username  // username of logged in user
+            });
 
-          // Clear form
-          event.target.text.value = "";
+            // Clear form
+            event.target.text.value = "";
 
-          // Prevent default form submit
-          return false;
-      },
-      "change .hide-completed input": function (event) {
-          Session.set("hideCompleted", event.target.checked);
-      }
+            // Prevent default form submit
+            return false;
+        },
+        "change .hide-completed input": function (event) {
+            Session.set("hideCompleted", event.target.checked);
+        }
 
-  });
+    });
 
-  Template.task.events({
-    "click .toggle-checked": function () {
-      // Set the checked property to the opposite of its current value
-      Tasks.update(this._id, {$set: {checked: ! this.checked}});
-    },
-    "click .delete": function () {
-      Tasks.remove(this._id);
-    }
-  });
+    Template.task.events({
+        "click .toggle-checked": function () {
+            // Set the checked property to the opposite of its current value
+            Tasks.update(this._id, {$set: {checked: ! this.checked}});
+        },
+        "click .delete": function () {
+            Tasks.remove(this._id);
+        }
+    });
 
-  Template.twilio_test.events({
-    "click button": function() {
-      //
-      console.log("hey");
-      Meteor.call("sendsms", "Testing", "+16787561965");
-    }
-  });
-  // Login Functionality
-  Accounts.ui.config({
-    passwordSignupFields: "USERNAME_ONLY"
-  });
+    Template.twilio_test.events({
+        "click button": function() {
+            console.log("hey");
+            Meteor.call("sendsms", "Testing", "+16787561965");
+        }
+    });
+    // Login Functionality
+    Accounts.ui.config({
+        "ready": function() {
+            var next = 1;
+            $(".add-more").click(function(e){
+                e.preventDefault();
+                var addto = "#field" + next;
+                addto.style.backgroundColor = "black";
+                var addRemove = "#field" + (next);
+                next = next + 1;
+                var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
+                newIn.style.backgroundColor = "black";
+                var newInput = $(newIn);
+                newInput.style.backgroundColor = "black";
+                var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
+                var removeButton = $(removeBtn);
+                $(addto).after(newInput);
+                $(addRemove).after(removeButton);
+                $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+                $("#count").val(next);
 
-  Template.task.events({
-      "click .toggle-checked": function () {
-          // Set the checked property to the opposite of its current value
-          Votes.update(this._id, {$set: {checked: ! this.checked}});
-      },
-      "click .delete": function () {
-          Votes.remove(this._id);
-      }
-  });
+                $('.remove-me').click(function(e){
+                    e.preventDefault();
+                    var fieldNum = this.id.charAt(this.id.length-1);
+                    var fieldID = "#field" + fieldNum;
+                    $(this).remove();
+                    $(fieldID).remove();
+                });
+            });
+        }
+    });
+
+    Template.task.events({
+        "click .toggle-checked": function () {
+            // Set the checked property to the opposite of its current value
+            Votes.update(this._id, {$set: {checked: ! this.checked}});
+        },
+        "click .delete": function () {
+            Votes.remove(this._id);
+        }
+    });
 
     Template.twil.events({
         "click #send": function() {
@@ -116,12 +142,12 @@ if (Meteor.isClient) {
 }
 
 /**
- * Routes
- */
+* Routes
+*/
 Router.route('/api/test', {where: 'server'})
-  .post(function(req, res) {
+.post(function(req, res) {
     console.log(req.body);
-  });
+});
 
 Router.route('/api/twiml/sms', {where: 'server'})
   .post(function(req, res) {
@@ -142,84 +168,85 @@ Router.route('/vote', {where: 'server'})
     }
     Meteor.call("sendsms", message, req.body.From);
   });
-/**
- * Test Routes
- */
-Router.route('/api/generate/event', {where: 'server'})
-  .post(function(req, res) {
-    Meteor.call("add_event", "hack nash", 0);
-  });
-Router.route('/api/generate/item', {where: 'server'})
-  .post(function(req, res) {
-    Meteor.call("add_item", "oMpgdRC2yM7JByFzX", "Voter", "best voting app", "gt");
-  });
-Router.route('/api/generate/vote', {where: 'server'})
-  .post(function(req, res) {
-    Meteor.call("add_vote", "+16787561965", "oMpgdRC2yM7JByFzX", 1)
-  });
 
 /**
- * Server methods that Client can call.
- */
+* Test Routes
+*/
+Router.route('/api/generate/event', {where: 'server'})
+.post(function(req, res) {
+    Meteor.call("add_event", "hack nash", 0);
+});
+Router.route('/api/generate/item', {where: 'server'})
+.post(function(req, res) {
+    Meteor.call("add_item", "oMpgdRC2yM7JByFzX", "Voter", "best voting app", "gt");
+});
+Router.route('/api/generate/vote', {where: 'server'})
+.post(function(req, res) {
+    Meteor.call("add_vote", "+16787561965", "oMpgdRC2yM7JByFzX", 1)
+});
+
+/**
+* Server methods that Client can call.
+*/
 Meteor.methods({
   sendsms: function(body, number) {
     client.sendSms({
-        body: body,
-        to: number,
-        from: "+16787854359"
+      body: body,
+      to: number,
+      from: "+16787854359"
     }, function(err, message) {
-        if (err) {
-            console.log(err.message);
-        }
-        process.stdout.write(message.sid);
+      if (err) {
+          console.log(err.message);
+      }
+      process.stdout.write(message.sid);
     });
   },
   recsms: function() {
-      var twil_client = Twilio(accountSid, authToken);
-      twil_client.listSms({
-          from:'+14049407775'
-      }, function (err, responseData) {
-          responseData.smsMessages.forEach(function(message) {
-              console.log('Message sent on: '+message.dateCreated.toLocaleDateString());
-              console.log(message.body);
-          });
+    var twil_client = Twilio(accountSid, authToken);
+    twil_client.listSms({
+      from:'+14049407775'
+    }, function (err, responseData) {
+      responseData.smsMessages.forEach(function(message) {
+        console.log('Message sent on: '+message.dateCreated.toLocaleDateString());
+        console.log(message.body);
       });
+    });
   },
   add_event: function(event_name, num_items) {
-    // var shorter_id = Math.random().toString(36).substring(11);
-    // var num_collisions = Events.find({ short_id: shorter_id }).count(function(err, count) {
-    //   if (count > 1) {
-    //     shorter_id = Math.random().toString(36).substring(11);
-    //     num_collisions();
-    //   }
-    //   else {
-        return Events.insert({
+      // var shorter_id = Math.random().toString(36).substring(11);
+      // var num_collisions = Events.find({ short_id: shorter_id }).count(function(err, count) {
+      //   if (count > 1) {
+      //     shorter_id = Math.random().toString(36).substring(11);
+      //     num_collisions();
+      //   }
+      //   else {
+      return Events.insert({
           name: event_name,
           createdAt: new Date(),
           owner: Meteor.userId(),
           items_counter: num_items,
           short_id: Math.random().toString(36).substring(11)
-        });
-    //   }
-    // });
+      });
+      //   }
+      // });
   },
   delete_event: function() {
-    Events.delete(this._id);
+      Events.delete(this._id);
   },
   add_item: function(event_id, item_name, item_description, item_team) {
-    // Assume event is valid.
-    var result = Events.findOne( { _id: event_id });
-    Events.update( { _id: event_id }, {$inc: {items_counter: 1}});
-    result.items_counter = result.items_counter + 1;
+      // Assume event is valid.
+      var result = Events.findOne( { _id: event_id });
+      Events.update( { _id: event_id }, {$inc: {items_counter: 1}});
+      result.items_counter = result.items_counter + 1;
 
-    Items.insert({
-      name: item_name,
-      description: item_description,
-      team: item_team,
-      num: result.items_counter,
-      votes: 0,
-      event: event_id
-    });
+      Items.insert({
+          name: item_name,
+          description: item_description,
+          team: item_team,
+          num: result.items_counter,
+          votes: 0,
+          event: event_id
+      });
   },
   add_vote: function(number, event_id, item_num) {
     // Check if number has ever voted.
@@ -227,13 +254,13 @@ Meteor.methods({
     if (result) {
       // Check if voted.
       if (result.voted_events.indexOf(event_id) != -1) {
-        return user_messages.ALREADY_VOTED;
+          return user_messages.ALREADY_VOTED;
       }
       else {
-        result.voted_events.push(event_id);
-        console.log(item_num);
-        Items.update({ event: event_id, num: item_num }, {$inc: {votes: 1}});
-        return user_messages.VOTE_SUCCESSFUL;
+          result.voted_events.push(event_id);
+          console.log(item_num);
+          Items.update({ event: event_id, num: item_num }, {$inc: {votes: 1}});
+          return user_messages.VOTE_SUCCESSFUL;
       }
     }
 

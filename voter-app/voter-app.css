@@ -1,4 +1,6 @@
 /* CSS declarations go here */
+
+
 body {
   font-family: sans-serif;
   background-color: #315481;
@@ -15,6 +17,10 @@ body {
   margin: 0;
 
   font-size: 14px;
+}
+
+#field {
+    margin-bottom:20px;
 }
 
 .container {
