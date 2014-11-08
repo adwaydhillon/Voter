@@ -1,5 +1,8 @@
 Votes = new Mongo.Collection("tasks");
 //twilio = Twilio("AC21f850538ec9bb250cd0de8b5c0badb3", "eaa95b3091b8866e36c1ec9aa82588e5");
+var accountSid = 'AC05a65b25f93c0661020d39873a925618';
+var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
+var twil_client = Twilio(accountSid, authToken);
 
 if (Meteor.isClient) {
   // This code only runs on the client
@@ -74,10 +77,7 @@ Accounts.ui.config({
 
 Meteor.methods({
   sendsms: function() {
-    var accountSid = 'AC05a65b25f93c0661020d39873a925618';
-    var authToken = "7f9b1c480cb2e82a540eec3ccea2a502";
-    var client = Twilio(accountSid, authToken);
-    client.sendSms({
+    twil_client.sendSms({
         body: "Methos",
         to: "+16787561965",
         from: "+16787854359"
