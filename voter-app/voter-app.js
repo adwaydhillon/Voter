@@ -85,16 +85,16 @@ if (Meteor.isClient) {
       }
   });
 
-  Template.twil.events({
-      "click #send": function() {
-          console.log("Send Attempt");
-          //Meteor.call("sendsms");
-      },
-      "click #rec": function() {
-          console.log("Rec attempt")
-          Meteor.call("recsms")
-      }
-  });
+    Template.twil.events({
+        "click #send": function() {
+            console.log("Send Attempt");
+            Meteor.call("sendsms", "Testing", "+16787561965");
+        },
+        "click #rec": function() {
+            console.log("Rec attempt")
+            Meteor.call("recsms")
+        }
+    });
 
 }
 
