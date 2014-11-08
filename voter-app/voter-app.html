@@ -12,7 +12,6 @@
     <header>
       <h1>Votes ({{incompleteCount}})</h1>
 
-
       <!-- add the checkbox to <body> right below the h1 -->
     <label class="hide-completed">
       <input type="checkbox" checked="{{hideCompleted}}" />
@@ -20,6 +19,8 @@
     </label>
 
     {{> loginButtons}} <!-- login buttons -->
+    <br>
+    {{> twil}}
 
       <!-- add a form below the h1 -->
       {{#if currentUser}}
@@ -46,8 +47,12 @@
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
 </template>
+
 <template name="twilio_test">
   <button>
     Send Message
   </button>
+
+<template name="twil">
+  <button>Click Me to send text</button>
 </template>

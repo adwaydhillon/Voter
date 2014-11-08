@@ -39,3 +39,6 @@ Thumbs.db
 # Dependencies handled by npm#
 ##############################
 node_modules/
+
+# Meteor Directory #
+*/.meteor/*
