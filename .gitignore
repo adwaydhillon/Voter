@@ -38,4 +38,4 @@ Thumbs.db
 
 # Dependencies handled by npm#
 ##############################
-backend/node_modules/
+node_modules/
