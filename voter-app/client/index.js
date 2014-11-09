@@ -89,6 +89,51 @@ Template.event_item.events({
     }
 });
 
+/**
+ * results helpers and events
+ */
+Template.results.helpers({
+    event_id: function() {
+        return Session.get("current_event");
+    }
+});
+
+/**
+ * votestats helpers and events
+ */
+Template.votestats.helpers({
+    items: function() {
+        var current_event = Session.get("current_event");
+        return Items.find({ event: current_event });
+    },
+    total_votes:function() {
+        var event_id = Session.get("current_event");
+        var sum_votes = 0;
+        var result = Items.find({ event: event_id });
+        result.forEach(function(element, index) {
+            var num_votes = element.votes;
+            sum_votes += num_votes;
+
+        });
+        return sum_votes;
+    }
+});
+
+/**
+ * item helpers and events
+ */
+Template.item.helpers({
+    item_num: function() {
+        return this.num;
+    },
+    item_name: function() {
+        return this.name;
+    },
+    votes_count: function() {
+        return this.votes;
+    }
+});
+
 Template.task.events({
     "click .delete": function () {
         Meteor.call("delete_item", this._id);

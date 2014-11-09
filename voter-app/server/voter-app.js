@@ -57,7 +57,7 @@ Meteor.methods({
 			}
 			else {
 				result.voted_events.push(event_id);
-				console.log(item_num);
+				PhoneNumbers.update( { _id: number }, {$set: {voted_events: result.voted_events }});
 				Items.update({ event: event_id, num: item_num }, {$inc: {votes: 1}});
 				return user_messages.VOTE_SUCCESSFUL;
 			}
@@ -92,18 +92,17 @@ Meteor.methods({
 		var sum_votes = 0;
 		var summary = {};
 		var items = {};
-		Items.find( { event: event_id }, function(err, result) {
-			result.forEach(function(element, index) {
-				var num_votes = element.votes;
-				sum_votes += num_votes;
+		result = Items.find({ event: event_id });
+		result.forEach(function(element, index) {
+			var num_votes = element.votes;
+			sum_votes += num_votes;
 
-				items[element.name] = num_votes;
-			});
+			items[element.name] = num_votes;
 		});
-
 		summary["item_totals"] = items;
 		summary["total_votes"] = sum_votes;
 		return summary;
+
 	},
 	addTask: function (text) {
 		// Make sure the user is logged in before inserting a task
