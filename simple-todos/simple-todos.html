@@ -1,61 +1,57 @@
 <head>
-  <title>Voter</title>
+    <title>Voter</title>
 </head>
 
 <body>
+
     <div class="navbar navbar-default" role="navigation" align="center">
-    <div class="navbar-header" align="center">
-        <a class="navbar-brand" href="#">Project name</a>
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
+        <div class="navbar-header" align="center">
+            <!-- <a class="navbar-brand" href="#">Project name</a> -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <!-- <span class="sr-only">Toggle navigation</span> -->
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!-- <li class="active"><a href="#">Link</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                {{> loginButtons}}
+            </ul>
+        </div>
     </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link</a></li>
+
+    {{#if currentUser}}
+    <form class="new-task">
+        <input type="text" name="text" placeholder="Type to add new vote items" />
+    </form>
+    {{/if}}
+
+    <div class="container">
+        <header>
+            <h1>Voter</h1>
+        </header>
+
+        <br>
+        <ul>
+            {{#each tasks}}
+            {{> task}}
+            {{/each}}
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-
-      {{> loginButtons}}
- </ul>
     </div>
-</div>
-      {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new vote items" />
-        </form>
-      {{/if}}
-    
+    </body>
 
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
+    <template name="_loginButtonsAdditionalLoggedInDropdownActions">
+        <button class="btn btn-default btn-block" id="login-buttons-edit-profile">Edit profile</button>
+    </template>
 
-</body>
-
-<template name="_loginButtonsAdditionalLoggedInDropdownActions">
-    <button class="btn btn-default btn-block" id="login-buttons-edit-profile">Edit profile</button>
-</template>
-
-<template name="task">
-  <li class>
-    <button class="delete">&times;</button>
-
-    <!-- {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}} -->
-
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-  </li>
-</template>
+    <template name="task">
+        <li class>
+            <button class="delete">&times;</button>
+            <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+        </li>
+    </template>
