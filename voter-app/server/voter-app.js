@@ -1,12 +1,11 @@
 /**
  * Collections
  */
-Events = new Mongo.Collection("events");
 Items = new Mongo.Collection("items");
 PhoneNumbers = new Mongo.Collection("phone_numbers");
 
 Meteor.methods({
-	add_event: function(event_name, num_items) {
+	add_event: function(event_name) {
 	    // var shorter_id = Math.random().toString(36).substring(11);
 	    // var num_collisions = Events.find({ short_id: shorter_id }).count(function(err, count) {
 	    //   if (count > 1) {
@@ -18,7 +17,7 @@ Meteor.methods({
 	        name: event_name,
 	        createdAt: new Date(),
 	        owner: Meteor.userId(),
-	        items_counter: num_items,
+	        items_counter: 0,
 	        short_id: Math.random().toString(36).substring(11)
 	    });
 	    //   }
@@ -83,15 +82,17 @@ Meteor.methods({
 	get_totals: function(event_id) {
 		var sum_votes = 0;
 		var summary = {};
+		var items = {};
 		Items.find( { event: event_id }, function(err, result) {
 			result.forEach(function(element, index) {
 				var num_votes = element.votes;
 				sum_votes += num_votes;
 
-				summary[element.name] = num_votes;
+				items[element.name] = num_votes;
 			});
 		});
 
+		summary["item_totals"] = items;
 		summary["total_votes"] = sum_votes;
 		return summary;
 	},

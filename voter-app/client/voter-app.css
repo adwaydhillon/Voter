@@ -78,7 +78,7 @@ ul {
   position: relative;
 }
 
-li {
+li.task_item {
   position: relative;
   list-style: none;
   padding: 15px;

@@ -9,6 +9,14 @@
 
       {{> loginButtons}}
 
+      {{> eventButtons}}
+
+      {{#with creating_event}}
+        <form id="creating-event">
+            <input type="text" name="event_name" placeholder="Event Name" />
+        </form>
+      {{/with}}
+
       {{#if currentUser}}
         <form class="new-task">
           <input type="text" name="text" placeholder="Type to add new vote items" />
@@ -26,7 +34,7 @@
 </body>
 
 <template name="task">
-  <li class>
+  <li class="task_item">
     <button class="delete">&times;</button>
 
     <!-- {{#if isOwner}}
@@ -41,4 +49,21 @@
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
+</template>
+
+<template name="eventButtons">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="active_event">{{active_button_text}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            {{#each events}}
+              {{> event_item}}
+            {{/each}}
+            <li class="divider"></li>
+            <li><a href="#" id="new_event">Add a new event</a></li>
+        </ul>
+    </div>
+</template>
+<template name="event_item">
+    <li><a href="#">{{event_name}}</a></li>
 </template>
