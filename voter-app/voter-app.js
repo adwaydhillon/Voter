@@ -92,13 +92,10 @@ if (Meteor.isClient) {
     $(".add-more").click(function(e){
         e.preventDefault();
         var addto = "#field" + next;
-        addto.style.backgroundColor = "black";
         var addRemove = "#field" + (next);
         next = next + 1;
         var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
-        newIn.style.backgroundColor = "black";
         var newInput = $(newIn);
-        newInput.style.backgroundColor = "black";
         var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
         var removeButton = $(removeBtn);
         $(addto).after(newInput);
@@ -151,7 +148,7 @@ Router.route('/api/test', {where: 'server'})
 Router.route('/api/twiml/sms', {where: 'server'})
   .post(function(req, res) {
     this.render('twilio_test', {message_received: req.body.Message})
-    Meteor.call("sendsms", "Thanks for texting", req.body.From);
+    Meteor.call("sendsms", "Thanks for texting, your response has been recorded", req.body.From);
   });
 /**
  * Test Routes
