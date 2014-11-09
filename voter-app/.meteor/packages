@@ -4,8 +4,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 mrt:moment
 mrt:twilio-meteor
 accounts-ui
@@ -14,4 +12,3 @@ iron:router
 aldeed:autoform
 nemo64:bootstrap
 less
-
