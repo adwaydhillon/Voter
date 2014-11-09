@@ -14,24 +14,24 @@ Router.route('/api/test', {where: 'server'})
 });
 
 Router.route('/api/twiml/sms', {where: 'server'})
-  .post(function(req, res) {
+.post(function(req, res) {
     this.render('twilio_test', {message_received: req.body.Body})
     Meteor.call("sendSMS", "Thanks for texting", req.body.From);
-  });
+});
 Router.route('/vote', {where: 'server'})
-  .post(function(req, res) {
+.post(function(req, res) {
     var content = req.body.Body;
     // Parse the content to be an event id and a thing to vote for.
     var parsed = Meteor.call("verify_vote", content);
 
     if (parsed) {
-      message = Meteor.call("add_vote", req.body.From, parsed.event_id, parsed.item);
+        message = Meteor.call("add_vote", req.body.From, parsed.event_id, parsed.item);
     }
     else {
-      message = user_messages.VOTE_WRONG_FORM;
+        message = user_messages.VOTE_WRONG_FORM;
     }
     Meteor.call("sendSMS", message, req.body.From);
-  });
+});
 
 /**
 * Test Routes

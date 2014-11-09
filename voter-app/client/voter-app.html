@@ -1,43 +1,43 @@
 <head>
-  <title>Voter</title>
+    <title>Voter</title>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <h1>Voter</h1>
+    <div class="container">
+        <header>
+            <h1>Voter</h1>
 
-      {{> loginButtons}}
+            {{> loginButtons}}
 
-      {{> eventButtons}}
+            {{> eventButtons}}
 
-      {{#with creating_event}}
-        <form id="creating-event">
-            <input type="text" name="event_name" placeholder="Event Name" />
-        </form>
-      {{/with}}
+            {{#with creating_event}}
+            <form id="creating-event">
+                <input type="text" name="event_name" placeholder="Event Name" />
+            </form>
+            {{/with}}
 
-      {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new vote items" />
-        </form>
-      {{/if}}
-    </header>
+            {{#if currentUser}}
+            <form class="new-task">
+                <input type="text" name="text" placeholder="Type to add new vote items" />
+            </form>
+            {{/if}}
+        </header>
 
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
+        <ul>
+            {{#each tasks}}
+            {{> task}}
+            {{/each}}
+        </ul>
 
-  </div>
+    </div>
 </body>
 
 <template name="task">
-  <li class="task_item">
-    <button class="delete">&times;</button>
-    <span class="text">{{item_name}}</span>
-  </li>
+    <li class="task_item">
+        <button class="delete">&times;</button>
+        <span class="text">{{item_name}}</span>
+    </li>
 </template>
 
 <template name="eventButtons">
@@ -46,7 +46,7 @@
         </button>
         <ul class="dropdown-menu" role="menu">
             {{#each events}}
-              {{> event_item}}
+            {{> event_item}}
             {{/each}}
             <li class="divider"></li>
             <li><a href="#" id="new_event">Add a new event</a></li>
