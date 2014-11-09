@@ -58,6 +58,8 @@ $ mrt add moment
 $ mrt add router --pkg-version 0.3.4
 # Meteorite will install page.js too, because router depends on it.
 ```
+The app should now be running on localhost:3000
+
 ## Other Commands
 It is not required that you run sudo mrt. If you do so, your home directory will pick up some root-owned files and you'll struggle to run mrt without sudo from then on. This isn't good.
 
