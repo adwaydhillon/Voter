@@ -31,32 +31,74 @@
             <br>
 
             <!-- add a form below the h1 -->
-            {{#if currentUser}}
-            <form class="new-task">
+            <!-- {{#if currentUser}} -->
+            <!-- <form class="new-task">
                 <input type="text" name="text" placeholder="Type to submit new vote" />
+            </form> -->
+
+            <!-- {{/if}} -->
+
+            <form class="new-voteitem">
+                <input type="text" name="text" placeholder="Type vote item" />
             </form>
 
-            {{/if}}
+                  <form class="new-task">
+        <input type="text" name="text" placeholder="Type to add new tasks" />
+      </form>
+
+
         </header>
-        {{> dyform}}
+        <!-- {{> dyform}}
         <br>
-        {{> twil}}
+
+        {{> dyform2}}
+        <br>
+        {{> twil}} -->
         <ul>
             {{#each tasks}}
             {{> task}}
             {{/each}}
         </ul>
+
+        <!-- <ul>
+            {{#each voteitems}}
+            {{> voteitem}}
+            {{/each}}
+        </ul> -->
     </div>
 </body>
 
+
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+
+      <form class="new-task">
+        <input type="text" name="text" placeholder="Type to add new tasks" />
+      </form>
+    </header>
+
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
 <template name="task">
-    <li class="{{#if checked}}checked{{/if}}">
-        <button class="delete">&times;</button>
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
 
-        <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-    </li>
+    <span class="text">{{text}}</span>
+  </li>
 </template>
 
 <template name="twil">
@@ -81,4 +123,20 @@
               </div>
           </div>
       </div>
+</template>
+
+<template name = "dyform2">
+    <script src="/wp-includes/js/addInput.js" language="Javascript" type="text/javascript"></script>
+<form method="POST">
+ <div id="dynamicInput">
+      Entry 1<br><input type="text" name="myInputs[]">
+ </div>
+ <input type="button" value="Add another text input" onClick="addInput('dynamicInput');">
+</form>
+</template>
+
+<template name = "voteitem">
+    <li class>
+        <span class="text">{{text}}</span>
+    </li>
 </template>
