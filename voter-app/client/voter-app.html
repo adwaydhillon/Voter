@@ -1,75 +1,44 @@
 <head>
-    <title>Voter Application</title>
+  <title>Voter</title>
 </head>
 
 <body>
-<div class="container">
-        <header>
-            <h1>Voter ({{incompleteCount}})</h1>
+  <div class="container">
+    <header>
+      <h1>Voter</h1>
 
-            <label class="hide-completed">
-                <input type="checkbox" checked="{{hideCompleted}}" />
-                Hide Checked Votes
-            </label>
+      {{> loginButtons}}
 
-            <form class="form-horizontal">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Event Details</legend>
-                    <!-- Text input-->
-                    <div class="control-group">
-                        <label class="control-label" for="eventname"></label>
-                        <div class="controls">
-                            <input id="eventname" name="eventname" type="text" placeholder="Event Name" class="input-xlarge" required="">
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+      {{#if currentUser}}
+        <form class="new-task">
+          <input type="text" name="text" placeholder="Type to add new vote items" />
+        </form>
+      {{/if}}
+    </header>
 
-            <br>
-            {{> loginButtons}}  <!-- login buttons -->
-            <br>
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
 
-            <!-- add a form below the h1 -->
-            <!-- {{#if currentUser}} -->
-            <!-- <form class="new-task">
-                <input type="text" name="text" placeholder="Type to submit new vote" />
-            </form> -->
-            <!-- {{/if}} -->
-            
-                  <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new tasks" />
-      </form>
-
-<br><br>
-
-        </header>
-<ul>
-    {{#each tasks}}
-    {{> task}}
-    {{/each}}
-</ul>
-        <br>
-        <br>
-        <br>
-        {{> twil}}
-    </div>
+  </div>
 </body>
 
 <template name="task">
-  <li class="{{#if checked}}checked{{/if}}">
+  <li class>
     <button class="delete">&times;</button>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    <!-- {{#if isOwner}}
+      <button class="toggle-private">
+        {{#if private}}
+          Private
+        {{else}}
+          Public
+        {{/if}}
+      </button>
+    {{/if}} -->
 
-    <span class="text">{{text}}</span>
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
-</template>
-
-<template name="twil">
-    <button id="send">
-        Send Message
-    </button>
-    <p>{{message_received}}</p>
-    <button id = "rec"> Recieve SMS </button>
 </template>
