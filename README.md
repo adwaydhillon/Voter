@@ -67,3 +67,4 @@ sudo mrt uninstall
 sudo mrt uninstall --system
 sudo chown -R `whoami` ~/.npm
 ```
+## How Meteorite Works
