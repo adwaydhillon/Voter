@@ -1,59 +1,19 @@
 /**
 * Collections
 */
-Votes = new Mongo.Collection("votes");
 Tasks = new Mongo.Collection("tasks");
 
 // This code only runs on the client
-Template.body.helpers({
+if (Meteor.isClient) {
+ Template.body.helpers({
     tasks: function () {
-        // if (Session.get("hideCompleted")) {
-            // If hide completed is checked, filter tasks
-        //     return Votes.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
-        // } else {
-        //     // Otherwise, return all of the tasks
-        //     return Votes.find({}, {sort: {createdAt: -1}});
-        // }
-        // return Votes.find({}, {sort: {createdAt: -1}});
-        return Tasks.find({}, {sort: {createdAt: -1}});
-    },
-    hideCompleted: function () {
-        return Session.get("hideCompleted");
-    },
-    incompleteCount: function () {
-        return Votes.find({checked: {$ne: true}}).count();
+      // Show newest tasks first
+      return Tasks.find({}, {sort: {createdAt: -1}});
     }
-});
+  });
 
 Template.body.events({
-    "submit .new-voteitem": function (event) {
-        // This function is called when the new task form is submitted
-
-        var text = event.target.text.value;
-
-        // Votes.insert({
-        //     text: text,
-        //     createdAt: new Date(),            // current time
-        //     owner: Meteor.userId(),           // _id of logged in user
-        //     // username: Meteor.user().username  // username of logged in user
-        // });
-
-        Tasks.insert({
-        text: text,
-        createdAt: new Date() // current time
-      });
-
-
-        // Clear form
-        event.target.text.value = "";
-
-        // Prevent default form submit
-        return false;
-    },
-    "change .hide-completed input": function (event) {
-        Session.set("hideCompleted", event.target.checked);
-    },
-        "submit .new-task": function (event) {
+    "submit .new-task": function (event) {
       // This function is called when the new task form is submitted
       var text = event.target.text.value;
 
@@ -68,7 +28,7 @@ Template.body.events({
       // Prevent default form submit
       return false;
     }
-});
+  });
 
 
 
@@ -81,32 +41,13 @@ Template.task.events({
         Tasks.remove(this._id);
     }
 });
-
+}
 
 // Login Functionality
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
 });
 
-Template.task.events({
-    "click .toggle-checked": function () {
-        // Set the checked property to the opposite of its current value
-        Votes.update(this._id, {$set: {checked: ! this.checked}});
-    },
-    "click .delete": function () {
-        Votes.remove(this._id);
-    }
-});
-
-Template.dyform2.events({
-"addInput": function(divName){
-          var counter = 1;
-          var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Entry " + (counter + 1) + " <br><input type='text' name='myInputs[]'>";
-          document.getElementById(divName).appendChild(newdiv);
-          counter++;
-     }
-});
 
 Template.twil.events({
     "click #send": function() {
@@ -119,36 +60,6 @@ Template.twil.events({
     }
 });
 
-Template.dyform.events({
-    "ready": function() {
-        var next = 1;
-        $(".add-more").click(function(e){
-            e.preventDefault();
-            var addto = "#field" + next;
-            addto.style.backgroundColor = "black";
-            var addRemove = "#field" + (next);
-            next = next + 1;
-            var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
-            newIn.style.backgroundColor = "black";
-            var newInput = $(newIn);
-            newInput.style.backgroundColor = "black";
-            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
-            var removeButton = $(removeBtn);
-            $(addto).after(newInput);
-            $(addRemove).after(removeButton);
-            $("#field" + next).attr('data-source',$(addto).attr('data-source'));
-            $("#count").val(next);
-
-            $('.remove-me').click(function(e){
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length-1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-        });
-    }
-});
 
 
 /**

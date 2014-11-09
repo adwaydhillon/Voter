@@ -37,11 +37,6 @@
             </form> -->
 
             <!-- {{/if}} -->
-
-            <form class="new-voteitem">
-                <input type="text" name="text" placeholder="Type vote item" />
-            </form>
-
                   <form class="new-task">
         <input type="text" name="text" placeholder="Type to add new tasks" />
       </form>
@@ -68,29 +63,6 @@
     </div>
 </body>
 
-
-<head>
-  <title>Todo List</title>
-</head>
-
-<body>
-  <div class="container">
-    <header>
-      <h1>Todo List</h1>
-
-      <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new tasks" />
-      </form>
-    </header>
-
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
-  </div>
-</body>
-
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
     <button class="delete">&times;</button>
@@ -109,7 +81,7 @@
     <button id = "rec"> Recieve SMS </button>
 </template>
 
-<template name = "dyform">
+<!-- <template name = "dyform">
     <div class="row">
       <input type="hidden" name="count" value="1" />
           <div class="control-group" id="fields">
@@ -133,10 +105,4 @@
  </div>
  <input type="button" value="Add another text input" onClick="addInput('dynamicInput');">
 </form>
-</template>
-
-<template name = "voteitem">
-    <li class>
-        <span class="text">{{text}}</span>
-    </li>
-</template>
+</template> -->
