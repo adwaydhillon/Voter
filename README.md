@@ -22,8 +22,19 @@ Iterate through collection -> Present votes
 
 Installing Meteorite:
 -----
+```
 $ npm install -g meteorite
+```
 
 NOTE: If your system requires root access to install global npm packages, make sure you use the -H flag:
-
+```
 $ sudo -H npm install -g meteorite
+```
+
+Usage:
+-----
+Make sure that you have git installed and available in your path. You will also need to make sure that the install location of mrt (usually /usr/local/bin/) is on your path.
+
+### `smart.json`
+List all your packages in a smart.json file
+
