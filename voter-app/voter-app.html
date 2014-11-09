@@ -1,8 +1,9 @@
 <head>
-  <title>Voter Application</title>
+    <title>Voter Application</title>
 </head>
 
 <body>
+<<<<<<< HEAD
 <div class="container">
   <div class="row">
     <input type="hidden" name="count" value="1" />
@@ -14,67 +15,81 @@
                 </form>
             <br>
             <small>Press + to add another form field :)</small>
+=======
+    <div class="container">
+        <div class="row">
+            <input type="hidden" name="count" value="1" />
+            <div class="control-group" id="fields">
+                <label class="control-label" for="field1">Nice Multiple Form Fields</label>
+                <div class="controls" id="profs">
+                    <form class="input-append">
+                        <div id="field"><input autocomplete="off" class="input" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
+                    </form>
+                    <br>
+                    <small>Press + to add another form field :)</small>
+                </div>
+>>>>>>> a86b0095abb259dcc9d9f8997248faf8f85361bb
             </div>
         </div>
-  </div>
-    <header>
-      <h1>Voter ({{incompleteCount}})</h1>
 
-    <label class="hide-completed">
-      <input type="checkbox" checked="{{hideCompleted}}" />
-      Hide Checked Votes
-    </label>
+        <header>
+            <h1>Voter ({{incompleteCount}})</h1>
 
-    <form class="form-horizontal">
-    <fieldset>
-    <!-- Form Name -->
-    <legend>Event Details</legend>
-    <!-- Text input-->
-    <div class="control-group">
-      <label class="control-label" for="eventname"></label>
-      <div class="controls">
-        <input id="eventname" name="eventname" type="text" placeholder="Event Name" class="input-xlarge" required="">
-      </div>
+            <label class="hide-completed">
+                <input type="checkbox" checked="{{hideCompleted}}" />
+                Hide Checked Votes
+            </label>
+
+            <form class="form-horizontal">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Event Details</legend>
+                    <!-- Text input-->
+                    <div class="control-group">
+                        <label class="control-label" for="eventname"></label>
+                        <div class="controls">
+                            <input id="eventname" name="eventname" type="text" placeholder="Event Name" class="input-xlarge" required="">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <br>
+            {{> loginButtons}}  <!-- login buttons -->
+            <br>
+
+            <!-- add a form below the h1 -->
+            {{#if currentUser}}
+            <form class="new-task">
+                <input type="text" name="text" placeholder="Type to submit new vote" />
+            </form>
+
+            {{/if}}
+        </header>
+
+        {{> twil}}
+        <ul>
+            {{#each tasks}}
+            {{> task}}
+            {{/each}}
+        </ul>
     </div>
-    </fieldset>
-    </form>
-
-    <br>
-    {{> loginButtons}}  <!-- login buttons -->
-    <br>
-
-      <!-- add a form below the h1 -->
-      {{#if currentUser}}
-      <form class="new-task">
-        <input type="text" name="text" placeholder="Type to submit new vote" />
-      </form>
-
-      {{/if}}
-    </header>
-
-    {{> twil}}
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
-  </div>
 </body>
 
 <template name="task">
-  <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">&times;</button>
+    <li class="{{#if checked}}checked{{/if}}">
+        <button class="delete">&times;</button>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
-  </li>
+        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+    </li>
 </template>
 
 <template name="twil">
-  <button id="send">
-    Send Message
-  </button>
-  <p>{{message_received}}</p>
-  <button id = "rec"> Recieve SMS </button>
+    <button id="send">
+        Send Message
+    </button>
+    <p>{{message_received}}</p>
+    <button id = "rec"> Recieve SMS </button>
 </template>
