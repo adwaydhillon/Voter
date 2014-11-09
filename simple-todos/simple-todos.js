@@ -11,6 +11,14 @@ if (Meteor.isClient) {
     }
   });
 
+  Template._loginButtonsLoggedInDropdown.events({
+    'click #login-buttons-edit-profile': function(event) {
+        event.stopPropagation();
+        Template._loginButtons.toggleDropdown();
+        Router.go('profileEdit');
+    }
+});
+
   Template.body.events({
     "submit .new-task": function (event) {
       // This function is called when the new task form is submitted
