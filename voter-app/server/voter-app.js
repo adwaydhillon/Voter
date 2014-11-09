@@ -85,6 +85,9 @@ Meteor.methods({
 	    item: item_num
 	  };
 	},
+	get_items: function(event_id) {
+		return Items.find( { event: event_id } );
+	},
 	get_totals: function(event_id) {
 		var sum_votes = 0;
 		var summary = {};
