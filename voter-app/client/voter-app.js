@@ -1,13 +1,20 @@
 // This code only runs on the client
 Meteor.subscribe("tasks");
+Meteor.subscribe("events");
+Meteor.subscribe("items");
 
 /**
  * Body helpers and events
  */
 Template.body.helpers({
   tasks: function () {
-    //if (Session.get("hideCompleted")) {
-      return Tasks.find({}, {sort: {createdAt: -1}});
+    var current_event = Session.get("current_event");
+    if (current_event) {
+      return Items.find({ event: current_event }, {sort: {createdAt: -1}});
+    }
+    else {
+      return [];
+    }
   },
   creating_event: function() {
     return Session.get("creating_event");
@@ -17,11 +24,15 @@ Template.body.events({
   "submit .new-task": function (event) {
     // This function is called when the new task form is submitted
     var text = event.target.text.value;
-
-    Meteor.call("addTask", text);
-
-    // Clear form
-    event.target.text.value = "";
+    var current_event = Session.get("current_event");
+    if (current_event) {
+      Meteor.call("add_item", current_event, text);
+      // Clear form
+      event.target.text.value = "";
+    }
+    else {
+      alert("Please select an existing event or create a new event first.");
+    }
 
     // Prevent default form submit
     return false;
@@ -80,13 +91,16 @@ Template.event_item.events({
 
 Template.task.events({
   "click .delete": function () {
-    Meteor.call("deleteTask", this._id);
+    Meteor.call("delete_item", this._id);
   }
 });
 
 Template.task.helpers({
   isOwner: function () {
     return this.owner === Meteor.userId();
+  },
+  item_name: function() {
+    return this.name;
   }
 });
 

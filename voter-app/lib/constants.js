@@ -9,3 +9,4 @@ user_messages = {
 
 Tasks = new Mongo.Collection("tasks");
 Events = new Mongo.Collection("events");
+Items = new Mongo.Collection("items");

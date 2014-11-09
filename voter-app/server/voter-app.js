@@ -1,7 +1,6 @@
 /**
  * Collections
  */
-Items = new Mongo.Collection("items");
 PhoneNumbers = new Mongo.Collection("phone_numbers");
 
 Meteor.methods({
@@ -26,7 +25,7 @@ Meteor.methods({
 	delete_event: function() {
 	    Events.delete(this._id);
 	},
-	add_item: function(event_id, item_name, item_description, item_team) {
+	add_item: function(event_id, item_name) {
 	    // Assume event is valid and item about to inserted is unique for the event.
 	    var result = Events.findOne( { _id: event_id });
 	    Events.update( { _id: event_id }, {$inc: {items_counter: 1}});
@@ -34,12 +33,19 @@ Meteor.methods({
 
 	    Items.insert({
 	        name: item_name,
-	        description: item_description,
-	        team: item_team,
+	        owner: Meteor.userId(),
 	        num: result.items_counter,
 	        votes: 0,
 	        event: event_id
 	    });
+	},
+	delete_item: function(item_id) {
+		var item = Items.findOne(item_id);
+		if (item.owner !== Meteor.userId()) {
+		  //Make sure only the owner can delete it
+		  throw new Meteor.Error("not-authorized");
+		}
+		Items.remove(item_id);
 	},
 	add_vote: function(number, event_id, item_num) {
 	  // Check if number has ever voted.
@@ -128,4 +134,12 @@ Meteor.publish("tasks", function () {
       { owner: this.userId }
     ]
   });
+});
+Meteor.publish("events", function() {
+	return Events.find({ owner: this.userId });
+});
+Meteor.publish("items", function() {
+	return Items.find({
+		owner: this.userId
+	});
 });
