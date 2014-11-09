@@ -25,10 +25,10 @@
 </body>
 
 <template name="task">
-  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+  <li class="private">
     <button class="delete">&times;</button>
 
-    {{#if isOwner}}
+    <!-- {{#if isOwner}}
       <button class="toggle-private">
         {{#if private}}
           Private
@@ -36,7 +36,7 @@
           Public
         {{/if}}
       </button>
-    {{/if}}
+    {{/if}} -->
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
