@@ -13,8 +13,9 @@
             <!-- Can be replaced by {{twilionumber}} -->
             <h3>Vote Statistics</h3>
             {{> votestats}}
-            {{else}}
+            {{#else}}
             <h1>Please Sign in!</h1>
+            {{/else}}
             {{/if}}
         </header>
 
@@ -32,5 +33,5 @@
 
 
 <template name="votestats">
-    Insert table here
+    Insert Vote Statistic Here
 </template>
