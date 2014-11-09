@@ -38,3 +38,32 @@ Make sure that you have git installed and available in your path. You will also 
 ### `smart.json`
 List all your packages in a smart.json file
 
+## Deploying to Meteorite
+```
+$ mrt install
+$ mrt update
+$ mrt link-package path/to/foo
+```
+
+## Meteorite Commands
+You can simply run meteor to start your app. You may need to run mrt install first.
+```
+$ mrt
+```
+Unlike meteor add, this command only one package can be added at a time with mrt add.
+```
+# Add the latest version of the moment package on Atmosphere.
+$ mrt add moment
+# Add a specific version of a package.
+$ mrt add router --pkg-version 0.3.4
+# Meteorite will install page.js too, because router depends on it.
+```
+## Other Commands
+It is not required that you run sudo mrt. If you do so, your home directory will pick up some root-owned files and you'll struggle to run mrt without sudo from then on. This isn't good.
+
+To fix the problem, try cleaning up potentially "sudo-ed" files:
+```
+sudo mrt uninstall
+sudo mrt uninstall --system
+sudo chown -R `whoami` ~/.npm
+```
