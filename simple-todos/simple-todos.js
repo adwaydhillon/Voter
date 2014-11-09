@@ -17,7 +17,6 @@ if (Meteor.isClient) {
       var text = event.target.text.value;
 
       Meteor.call("addTask", text);
-      Meteor.call("setPrivate", this._id, ! this.private);
 
       // Clear form
       event.target.text.value = "";
@@ -55,27 +54,18 @@ Meteor.methods({
       text: text,
       createdAt: new Date(),
       owner: Meteor.userId(),
-      username: Meteor.user().username
+      username: Meteor.user().username,
+      private: true //Every task is private by default
     });
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can delete it
+    if (task.owner !== Meteor.userId()) {
+      //Make sure only the owner can delete it
       throw new Meteor.Error("not-authorized");
     }
 
     Tasks.remove(taskId);
-  },
-  setPrivate: function (taskId, setToPrivate) {
-    var task = Tasks.findOne(taskId);
-
-    // Make sure only the task owner can make a task private
-    if (task.owner !== Meteor.userId()) {
-      throw new Meteor.Error("not-authorized");
-    }
-
-    Tasks.update(taskId, { $set: { private: setToPrivate } });
   }
 });
 
