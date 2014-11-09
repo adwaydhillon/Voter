@@ -29,7 +29,9 @@
             {{> task}}
             {{/each}}
         </ul>
-
+{{#if currentUser}}
+        <button type = "button" id = "cont"><a href="/vote.html">Continue</a></button>
+    {{/if}}
     </div>
 </body>
 
@@ -53,6 +55,7 @@
         </ul>
     </div>
 </template>
+
 <template name="event_item">
     <li><a href="#">{{event_name}}</a></li>
 </template>

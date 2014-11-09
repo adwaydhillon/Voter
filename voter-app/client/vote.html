@@ -1,0 +1,33 @@
+<head>
+    <title>Voter</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <strong>Voter</strong>
+
+            {{> loginButtons}}
+            <br>
+            <h2>Please vote at: +1(678)785-4359</h2>
+            <!-- Can be replaced by {{twilionumber}} -->
+            <h3>Vote Statistics</h3>
+            {{> votestats}}
+        </header>
+
+        <ul>
+            {{#each tasks}}
+            {{> task}}
+            {{/each}}
+        </ul>
+{{#if currentUser}}
+        <button type = "button" id = "cont"><a href="/">Go back</a></button>
+    {{/if}}
+    </div>
+</body>
+
+
+
+<template name="votestats">
+    Insert table here
+</template>
