@@ -25,4 +25,5 @@ Installing Meteorite:
 $ npm install -g meteorite
 
 NOTE: If your system requires root access to install global npm packages, make sure you use the -H flag:
+
 $ sudo -H npm install -g meteorite
