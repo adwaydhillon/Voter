@@ -104,6 +104,13 @@ Template.task.helpers({
   }
 });
 
+Template._loginButtonsLoggedInDropdown.events({
+    'click #login-buttons-logout': function(event) {
+        Session.keys = {};
+        
+    }
+});
+
 Accounts.ui.config({
   passwordSignupFields: "USERNAME_ONLY"
 });
