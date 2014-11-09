@@ -28,7 +28,7 @@ Meteor.methods({
 	    Events.delete(this._id);
 	},
 	add_item: function(event_id, item_name, item_description, item_team) {
-	    // Assume event is valid.
+	    // Assume event is valid and item about to inserted is unique for the event.
 	    var result = Events.findOne( { _id: event_id });
 	    Events.update( { _id: event_id }, {$inc: {items_counter: 1}});
 	    result.items_counter = result.items_counter + 1;
@@ -79,5 +79,20 @@ Meteor.methods({
 	    event_id: parts[0],
 	    item: item_num
 	  };
+	},
+	get_totals: function(event_id) {
+		var sum_votes = 0;
+		var summary = {};
+		Items.find( { event: event_id }, function(err, result) {
+			result.forEach(function(element, index) {
+				var num_votes = element.votes;
+				sum_votes += num_votes;
+
+				summary[element.name] = num_votes;
+			});
+		});
+
+		summary["total_votes"] = sum_votes;
+		return summary;
 	}
 });
