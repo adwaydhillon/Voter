@@ -7,11 +7,6 @@
     <header>
       <h1>Voter</h1>
 
-      <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label>
-
       {{> loginButtons}}
 
       {{#if currentUser}}
@@ -30,7 +25,7 @@
 </body>
 
 <template name="task">
-  <li class="private">
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
 
     {{#if isOwner}}
