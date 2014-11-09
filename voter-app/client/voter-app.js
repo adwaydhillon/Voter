@@ -65,6 +65,31 @@ Template.twilio_test.events({
 });
 // Login Functionality
 Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+});
+
+Template.task.events({
+    "click .toggle-checked": function () {
+        // Set the checked property to the opposite of its current value
+        Votes.update(this._id, {$set: {checked: ! this.checked}});
+    },
+    "click .delete": function () {
+        Votes.remove(this._id);
+    }
+});
+
+Template.twil.events({
+    "click #send": function() {
+        console.log("Send Attempt");
+        Meteor.call("sendSMS", "Testing", "+16787561965");
+    },
+    "click #rec": function() {
+        console.log("Rec attempt")
+        Meteor.call("recsms")
+    }
+});
+
+Template.dyform.events({
     "ready": function() {
         var next = 1;
         $(".add-more").click(function(e){
@@ -93,28 +118,7 @@ Accounts.ui.config({
             });
         });
     }
-});
-
-Template.task.events({
-    "click .toggle-checked": function () {
-        // Set the checked property to the opposite of its current value
-        Votes.update(this._id, {$set: {checked: ! this.checked}});
-    },
-    "click .delete": function () {
-        Votes.remove(this._id);
-    }
-});
-
-Template.twil.events({
-    "click #send": function() {
-        console.log("Send Attempt");
-        Meteor.call("sendSMS", "Testing", "+16787561965");
-    },
-    "click #rec": function() {
-        console.log("Rec attempt")
-        Meteor.call("recsms")
-    }
-});
+})
 
 /**
 * Server methods that Client can call.
