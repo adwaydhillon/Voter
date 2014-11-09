@@ -4,7 +4,6 @@
 Tasks = new Mongo.Collection("tasks");
 
 // This code only runs on the client
-if (Meteor.isClient) {
  Template.body.helpers({
     tasks: function () {
       // Show newest tasks first
@@ -41,7 +40,6 @@ Template.task.events({
         Tasks.remove(this._id);
     }
 });
-}
 
 // Login Functionality
 Accounts.ui.config({
