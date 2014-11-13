@@ -29,9 +29,11 @@
             {{> task}}
             {{/each}}
         </ul>
-        {{#if currentUser}}
-        <button type = "button" id = "cont"><a href="vote.html">Continue</a></button>
-        {{/if}}
+<!--         {{#if currentUser}}
+        <button type = "button" id = "cont"><a href="results.html">Continue</a></button>
+        {{/if}} -->
+
+        {{> results}}
     </div>
 </body>
 
@@ -58,4 +60,41 @@
 
 <template name="event_item">
     <li><a href="#">{{event_name}}</a></li>
+</template>
+
+<template name="results">
+    <h2>Please vote at: +1(678)785-4359</h2>
+    <h3>Event ID: {{event_id}}</h3>
+    <!-- Can be replaced by {{twilionumber}} -->
+    <h3>Vote Statistics</h3>
+    {{> votestats}}
+</template>
+<template name="votestats">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <th>Total Votes</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Total Votes</td>
+                <td>{{total_votes}}</td>
+            </tr>
+        </tfoot>
+        {{#each items}}
+        {{> item}}
+        {{/each}}
+    </table>
+</template>
+
+<template name="item">
+    <tr>
+        <td>{{item_num}}</td>
+        <td>{{item_name}}</td>
+        <td>{{votes_count}}</td>
+    </tr>
 </template>
